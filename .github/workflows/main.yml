@@ -1,0 +1,30 @@
+name: NPM Package
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-gpr:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The setup-node action sets up a node.js environment for use in an action
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GIT_TOKEN }}
+      - run: npm -v
+      - run: npm init -y
+      - run: npm install
+      - run: npm ci
+      - name: Check .npmrc existence
+        run: if [ -f /Users/runner/work/_temp/.npmrc ]; then echo ".npmrc exists"; else echo ".npmrc does not exist"; fi
+      - name: Print .npmrc
+        run: cat $NPM_CONFIG_USERCONFIG
+      - run: npm publish
+      - run: npm config list
+        if: ${{ failure() }}
