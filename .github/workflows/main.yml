@@ -12,7 +12,7 @@ jobs:
       # The setup-node action sets up a node.js environment for use in an action
       - uses: shaanmugapriya/setup-dotnet@Feature/AddLatest
         with:
-          node-version: latest
+          dotnet-version: latest
           registry-url: https://npm.pkg.github.com/
           scope: '@shaanmugapriya'
         env:
