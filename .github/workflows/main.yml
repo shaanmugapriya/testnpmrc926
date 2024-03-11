@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # The setup-node action sets up a node.js environment for use in an action
-      - uses: actions/setup-node@v4
+      - uses: shaanmugapriya/setup-dotnet@Feature/AddLatest
         with:
           node-version: latest
           registry-url: https://npm.pkg.github.com/
